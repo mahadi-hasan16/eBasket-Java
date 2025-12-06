@@ -1,0 +1,51 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { ChangeDetectorRef, inject, Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment.development';
+import { Pagination } from '../../shared/models/pagination';
+import { Product } from '../../shared/models/product';
+import { ShopParams } from '../../shared/models/shopParams';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ShopService {
+  private baseUrl = environment.baseUrl;
+  private http = inject(HttpClient);
+
+  brands: string[] = [];
+  types: string[] = [];
+
+  getProducts(shopParams: ShopParams) {
+    return this.http.get<Product[]>(this.baseUrl + 'products');
+  }
+
+  getProduct(id: number) {
+    return this.http.get<Product>(this.baseUrl + 'products/' + id);
+  }
+
+  getBrands() {
+    if (this.brands.length > 0) return;
+    return this.http.get<string[]>(this.baseUrl + 'products/brands')
+      .subscribe(
+        {
+          next: respnse => this.brands = respnse,
+          error: error => {
+            console.log(error.message);
+          }
+        }
+      )
+  }
+
+  getTypes() {
+    if (this.types.length > 0) return;
+    return this.http.get<string[]>(this.baseUrl + 'products/types')
+      .subscribe(
+        {
+          next: respnse => this.types = respnse,
+          error: error => {
+            console.log(error.message);
+          }
+        }
+      )
+  }
+}

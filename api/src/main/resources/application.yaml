@@ -3,7 +3,7 @@ spring:
     name: api
 
 
-#Database Configuration
+  #Database Configuration
   datasource:
     url: jdbc:postgresql://localhost:5432/ebasket
     username: postgres
@@ -13,7 +13,7 @@ spring:
       maximum-pool-size: 10
 
 
-#JPA Configuration
+  #JPA Configuration
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
@@ -27,3 +27,4 @@ spring:
         order_insert: true
         order_updates: true
     open-in-view: false
+
