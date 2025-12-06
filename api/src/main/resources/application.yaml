@@ -1,3 +1,29 @@
 spring:
   application:
     name: api
+
+
+#Database Configuration
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ebasket
+    username: postgres
+    password: admin
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+
+
+#JPA Configuration
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+        jdbc:
+          batch_size: 10
+        order_insert: true
+        order_updates: true
+    open-in-view: false
