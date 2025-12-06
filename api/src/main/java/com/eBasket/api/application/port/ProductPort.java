@@ -14,4 +14,10 @@ public interface ProductPort {
     Page<Product> findAllProducts(Pageable pageable);
     void deleteProductById(Long id);
     Product updateProduct(Long id, Product product);
+    List<Product> findByBrand(String brand);
+    List<Product> findByBrandsIn(List<String> brands);
+    List<Product> findByType(String type);
+    List<Product> findByTypesIn(List<String> types);
+    List<Product> findByBrandsInAndTypesIn(List<String> brands, List<String> types);
+    List<Product> searchByName(String searchTerm);
 }
