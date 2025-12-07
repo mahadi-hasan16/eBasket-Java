@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -80,5 +81,66 @@ public class ProductController {
         productPort.deleteProductById(id);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/brands")
+    public ResponseEntity<List<String>> getAllBrands()
+    {
+        List<String> brands= productPort.findAllBrands();
+        return ResponseEntity.ok(brands);
+    }
+
+    @GetMapping("/types")
+    public ResponseEntity<List<String>> getAllTypes()
+    {
+        List<String> types= productPort.findAllTypes();
+        return ResponseEntity.ok(types);
+    }
+
+    @GetMapping(params = "brand")
+    public ResponseEntity<List<Product>>  getAllProductsByBrand(@RequestParam String brand)
+    {
+        var products = productPort.findByBrand(brand);
+        return ResponseEntity.ok(products);
+    }
+
+    @GetMapping(params = "brands")
+    public ResponseEntity<List<Product>> getAllProductsByBrands(@RequestParam String brands)
+    {
+        List<String> brandList = Arrays.asList(brands.split(","));
+        var products = productPort.findByBrandIn(brandList);
+        return ResponseEntity.ok(products);
+    }
+
+    @GetMapping(params = "types")
+    public ResponseEntity<List<Product>> getAllProductsByTypes(@RequestParam String types)
+    {
+        List<String> typeList = Arrays.asList(types.split(","));
+        var products = productPort.findByTypeIn(typeList);
+        return ResponseEntity.ok(products);
+    }
+
+    @GetMapping(params = {"brands", "types"})
+    public ResponseEntity<List<Product>>  getAllProductsByBrandAndTypes(@RequestParam String brands, @RequestParam String types)
+    {
+        List<String> brandList = Arrays.asList(brands.split(","));
+        List<String> typeList = Arrays.asList(types.split(","));
+
+        var products = productPort.findByBrandInAndTypeIn(brandList, typeList);
+        return ResponseEntity.ok(products);
+    }
+
+    @GetMapping(params = "type")
+    public ResponseEntity<List<Product>>   getAllProductsByType(@RequestParam String type)
+    {
+        var products = productPort.findByType(type);
+        return ResponseEntity.ok(products);
+    }
+
+    @GetMapping(params = "search")
+    public ResponseEntity<List<Product>> searchProducts(@RequestParam String search)
+    {
+        var products = productPort.searchByName(search);
+        return ResponseEntity.ok(products);
     }
 }

@@ -15,9 +15,11 @@ public interface ProductPort {
     void deleteProductById(Long id);
     Product updateProduct(Long id, Product product);
     List<Product> findByBrand(String brand);
-    List<Product> findByBrandsIn(List<String> brands);
+    List<Product> findByBrandIn(List<String> brands);
     List<Product> findByType(String type);
-    List<Product> findByTypesIn(List<String> types);
-    List<Product> findByBrandsInAndTypesIn(List<String> brands, List<String> types);
+    List<Product> findByTypeIn(List<String> types);
+    List<Product> findByBrandInAndTypeIn(List<String> brands, List<String> types);
     List<Product> searchByName(String searchTerm);
+    List<String> findAllBrands();
+    List<String> findAllTypes();
 }

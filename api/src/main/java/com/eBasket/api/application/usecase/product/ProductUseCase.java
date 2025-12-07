@@ -83,8 +83,8 @@ public class ProductUseCase implements ProductPort {
     }
 
     @Override
-    public List<Product> findByBrandsIn(List<String> brands) {
-        return productRepository.findByBrandsIn(brands)
+    public List<Product> findByBrandIn(List<String> brands) {
+        return productRepository.findByBrandIn(brands)
                 .stream()
                 .map(productMapper :: toDomain)
                 .toList();
@@ -99,16 +99,16 @@ public class ProductUseCase implements ProductPort {
     }
 
     @Override
-    public List<Product> findByTypesIn(List<String> types) {
-        return productRepository.findByTypesIn(types)
+    public List<Product> findByTypeIn(List<String> types) {
+        return productRepository.findByTypeIn(types)
                 .stream()
                 .map(productMapper :: toDomain)
                 .toList();
     }
 
     @Override
-    public List<Product> findByBrandsInAndTypesIn(List<String> brands, List<String> types) {
-        return productRepository.findByBrandsInAndTypesIn(brands, types)
+    public List<Product> findByBrandInAndTypeIn(List<String> brands, List<String> types) {
+        return productRepository.findByBrandInAndTypeIn(brands, types)
                 .stream()
                 .map(productMapper :: toDomain)
                 .toList();
@@ -120,5 +120,17 @@ public class ProductUseCase implements ProductPort {
                 .stream()
                 .map(productMapper :: toDomain)
                 .toList();
+    }
+
+    @Override
+    public List<String> findAllBrands() {
+        return productRepository.findAllDistinctBrands()
+                .stream()
+                .toList();
+    }
+
+    @Override
+    public List<String> findAllTypes() {
+        return productRepository.findAllDistinctTypes();
     }
 }

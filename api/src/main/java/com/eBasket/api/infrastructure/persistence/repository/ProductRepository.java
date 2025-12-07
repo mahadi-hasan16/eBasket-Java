@@ -12,10 +12,10 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<ProductEntity, Long>
 {
     List<ProductEntity> findByBrand(String brand);
-    List<ProductEntity> findByBrandsIn(List<String> brands);
+    List<ProductEntity> findByBrandIn(List<String> brands);
     List<ProductEntity> findByType(String type);
-    List<ProductEntity> findByTypesIn(List<String> category);
-    List<ProductEntity> findByBrandsInAndTypesIn(List<String> brands, List<String> types);
+    List<ProductEntity> findByTypeIn(List<String> category);
+    List<ProductEntity> findByBrandInAndTypeIn(List<String> brands, List<String> types);
     List<ProductEntity> findByNameContainingIgnoreCase(String name);
 
     @Query("SELECT DISTINCT p.brand FROM ProductEntity p ORDER BY  p.brand")
