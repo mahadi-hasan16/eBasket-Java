@@ -1,6 +1,5 @@
 package com.eBasket.api.infrastructure.persistence.repository;
 
-import com.eBasket.api.domain.model.Product;
 import com.eBasket.api.infrastructure.persistence.entity.ProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
