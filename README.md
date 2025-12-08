@@ -4,9 +4,10 @@
   ### Frontend: Angular
   ### Backend: Spring Boot
   ### Database: PostgreSQL
+## API Architecture
+![](assets/flow.png)
 
-
-  ![My Project Logo](assets/home_page.png)
+  
 
 
 
