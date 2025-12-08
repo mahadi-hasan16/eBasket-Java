@@ -74,33 +74,18 @@ public class ProductUseCase implements ProductPort {
         return productMapper.toDomain(updatedEntity);
     }
 
+
     @Override
-    public List<Product> findByBrand(String brand) {
-        return productRepository.findByBrand(brand)
+    public List<Product> findByBrandIn(List<String> brand) {
+        return productRepository.findByBrandIn(brand)
                 .stream()
                 .map(productMapper :: toDomain)
                 .toList();
     }
 
     @Override
-    public List<Product> findByBrandIn(List<String> brands) {
-        return productRepository.findByBrandIn(brands)
-                .stream()
-                .map(productMapper :: toDomain)
-                .toList();
-    }
-
-    @Override
-    public List<Product> findByType(String type) {
-        return productRepository.findByType(type)
-                .stream()
-                .map(productMapper :: toDomain)
-                .toList();
-    }
-
-    @Override
-    public List<Product> findByTypeIn(List<String> types) {
-        return productRepository.findByTypeIn(types)
+    public List<Product> findByTypeIn(List<String> type) {
+        return productRepository.findByTypeIn(type)
                 .stream()
                 .map(productMapper :: toDomain)
                 .toList();

@@ -11,10 +11,8 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity, Long>
 {
-    List<ProductEntity> findByBrand(String brand);
-    List<ProductEntity> findByBrandIn(List<String> brands);
-    List<ProductEntity> findByType(String type);
-    List<ProductEntity> findByTypeIn(List<String> category);
+    List<ProductEntity> findByBrandIn(List<String> brand);
+    List<ProductEntity> findByTypeIn(List<String> type);
     List<ProductEntity> findByBrandInAndTypeIn(List<String> brands, List<String> types);
     List<ProductEntity> findByNameContainingIgnoreCase(String name);
 

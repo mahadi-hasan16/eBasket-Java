@@ -97,50 +97,57 @@ public class ProductController {
         return ResponseEntity.ok(types);
     }
 
+
     @GetMapping(params = "brand")
-    public ResponseEntity<List<Product>>  getAllProductsByBrand(@RequestParam String brand)
+    public ResponseEntity<List<ProductResponse>> getAllProductsByBrands(@RequestParam String brand)
     {
-        var products = productPort.findByBrand(brand);
-        return ResponseEntity.ok(products);
-    }
+        List<String> brandList = Arrays.asList(brand.split(","));
+        List<Product> products = productPort.findByBrandIn(brandList);
+        List<ProductResponse> responses = products
+                .stream()
+                .map(productMapper :: toResponse)
+                .toList();
 
-    @GetMapping(params = "brands")
-    public ResponseEntity<List<Product>> getAllProductsByBrands(@RequestParam String brands)
-    {
-        List<String> brandList = Arrays.asList(brands.split(","));
-        var products = productPort.findByBrandIn(brandList);
-        return ResponseEntity.ok(products);
-    }
-
-    @GetMapping(params = "types")
-    public ResponseEntity<List<Product>> getAllProductsByTypes(@RequestParam String types)
-    {
-        List<String> typeList = Arrays.asList(types.split(","));
-        var products = productPort.findByTypeIn(typeList);
-        return ResponseEntity.ok(products);
-    }
-
-    @GetMapping(params = {"brands", "types"})
-    public ResponseEntity<List<Product>>  getAllProductsByBrandAndTypes(@RequestParam String brands, @RequestParam String types)
-    {
-        List<String> brandList = Arrays.asList(brands.split(","));
-        List<String> typeList = Arrays.asList(types.split(","));
-
-        var products = productPort.findByBrandInAndTypeIn(brandList, typeList);
-        return ResponseEntity.ok(products);
+        return ResponseEntity.ok(responses);
     }
 
     @GetMapping(params = "type")
-    public ResponseEntity<List<Product>>   getAllProductsByType(@RequestParam String type)
+    public ResponseEntity<List<ProductResponse>> getAllProductsByTypes(@RequestParam String type)
     {
-        var products = productPort.findByType(type);
-        return ResponseEntity.ok(products);
+        List<String> typeList = Arrays.asList(type.split(","));
+        List<Product> products = productPort.findByTypeIn(typeList);
+        List<ProductResponse> responses = products
+                .stream()
+                .map(productMapper :: toResponse)
+                .toList();
+
+        return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping(params = {"brands", "types"})
+    public ResponseEntity<List<ProductResponse>>  getAllProductsByBrandAndTypes(@RequestParam String brands, @RequestParam String types)
+    {
+        List<String> brandList = Arrays.asList(brands.split(","));
+        List<String> typeList = Arrays.asList(types.split(","));
+
+        List<Product> products = productPort.findByBrandInAndTypeIn(brandList, typeList);
+        List<ProductResponse> responses = products
+                .stream()
+                .map(productMapper :: toResponse)
+                .toList();
+
+        return ResponseEntity.ok(responses);
     }
 
     @GetMapping(params = "search")
-    public ResponseEntity<List<Product>> searchProducts(@RequestParam String search)
+    public ResponseEntity<List<ProductResponse>> searchProducts(@RequestParam String search)
     {
-        var products = productPort.searchByName(search);
-        return ResponseEntity.ok(products);
+        List<Product> products = productPort.searchByName(search);
+        List<ProductResponse> responses = products
+                .stream()
+                .map(productMapper :: toResponse)
+                .toList();
+
+        return ResponseEntity.ok(responses);
     }
 }
