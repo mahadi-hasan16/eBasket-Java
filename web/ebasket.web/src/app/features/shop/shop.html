@@ -1,5 +1,5 @@
 <div class="flex flex-col gap-3 mt-4">
-  <div id="shopFilter" class="flex justify-between" style="display: none;">
+  <div id="shopFilter" class="flex justify-between">
     <div class="paginator">
       <!-- <mat-paginator (page)="handlePageEvent($event)" [length]="products?.count" [pageSize]="products?.pageSize"
         [pageIndex]="shopParams.pageNumber - 1" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
@@ -8,7 +8,7 @@
     <div>
       <form #searchForm="ngForm" (ngSubmit)="onSearchChange()" class="relative flex items-center w-full max-w-md mx-4">
         <input type="search" class="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg"
-          placeholder="Search" name="search" [(ngModel)]="shopParams.search" />
+          placeholder="Search" name="search"/>
         <button mat-icon-button type="submit" class="absolute inset-y-0 right-10 top-1 flex items-center pl-3">
           <mat-icon>search</mat-icon>
         </button>
@@ -28,7 +28,7 @@
   </div>
 
   <div class="grid grid-cols-5 gap-4">
-    @for (product of products; track product.id)
+    @for (product of products; track product.id || $index)
     {
     <app-product-item [product]="product"></app-product-item>
     }
@@ -48,7 +48,7 @@
 <mat-menu #sortMenu="matMenu">
   <mat-selection-list [multiple]="false" (selectionChange)="onSortChange($event)">
     @for(sort of sortOptions; track $index){
-    <mat-list-option [value]="sort.value" [selected]="shopParams.sort === sort.value">
+    <mat-list-option [value]="sort.value">
       {{sort.name}}
     </mat-list-option>
     }

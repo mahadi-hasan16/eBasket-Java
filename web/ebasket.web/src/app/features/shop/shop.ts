@@ -53,8 +53,8 @@ export class Shop implements OnInit {
   }
 
   initializeShop() {
-    // this.shopService.getBrands();
-    // this.shopService.getTypes();
+    this.shopService.getBrands();
+    this.shopService.getTypes();
     this.getProducts();
   }
 
@@ -63,7 +63,7 @@ export class Shop implements OnInit {
       .subscribe({
         next: response => {
           this.products = response;
-          //console.log(this.products);
+          console.log(this.shopParams);
           this.changeDetectionRef.detectChanges();
           console.log(this.products);
         },
@@ -77,14 +77,14 @@ export class Shop implements OnInit {
   onSortChange(event: MatSelectionListChange) {
     const selectedOption = event.options[0];
     if (selectedOption) {
-      this.shopParams.sort = selectedOption.value;
-      this.shopParams.pageNumber = 1;
+      //this.shopParams.sort = selectedOption.value;
+      //this.shopParams.pageNumber = 1;
       this.getProducts();
     }
   }
 
   onSearchChange() {
-    this.shopParams.pageNumber = 1;
+    //this.shopParams.pageNumber = 1;
     this.getProducts();
   }
 
@@ -104,11 +104,11 @@ export class Shop implements OnInit {
         {
           next: result => {
             if (result) {
-              console.log(result);
+              console.log('Filter Dialogbox: ',result);
               this.shopParams.brands = result.selectedBrands;
               this.shopParams.types = result.selectedTypes;
-              this.shopParams.pageNumber = 1;
-
+              //this.shopParams.pageNumber = 1;
+              console.log('Filter is calling');
               this.getProducts();
             }
           }
@@ -117,8 +117,8 @@ export class Shop implements OnInit {
   }
 
   handlePageEvent(event: PageEvent) {
-    this.shopParams.pageNumber = event.pageIndex + 1;
-    this.shopParams.pageSize = event.pageSize;
+    // this.shopParams.pageNumber = event.pageIndex + 1;
+    // this.shopParams.pageSize = event.pageSize;
     this.getProducts();
   }
 

@@ -16,7 +16,15 @@ export class ShopService {
   types: string[] = [];
 
   getProducts(shopParams: ShopParams) {
-    return this.http.get<Product[]>(this.baseUrl + 'products');
+    let params = new HttpParams();
+    if(shopParams.brands.length > 0){
+      params = params.append('brand',shopParams.brands.join(','));
+    }
+    if(shopParams.types.length > 0){
+      params = params.append('type',shopParams.types.join(','));
+    }
+    console.log(this.baseUrl + 'products?'+params.toString());
+    return this.http.get<Product[]>(this.baseUrl + 'products',{params});
   }
 
   getProduct(id: number) {
