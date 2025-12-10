@@ -18,10 +18,10 @@ export class ShopService {
   getProducts(shopParams: ShopParams) {
     let params = new HttpParams();
     if(shopParams.brands.length > 0){
-      params = params.append('brand',shopParams.brands.join(','));
+      params = params.append('brands',shopParams.brands.join(','));
     }
     if(shopParams.types.length > 0){
-      params = params.append('type',shopParams.types.join(','));
+      params = params.append('types',shopParams.types.join(','));
     }
     console.log(this.baseUrl + 'products?'+params.toString());
     return this.http.get<Product[]>(this.baseUrl + 'products',{params});

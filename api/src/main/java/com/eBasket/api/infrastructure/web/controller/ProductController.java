@@ -86,22 +86,22 @@ public class ProductController {
     @GetMapping("/brands")
     public ResponseEntity<List<String>> getAllBrands()
     {
-        List<String> brands= productPort.findAllBrands();
+        List<String> brands = productPort.findAllBrands();
         return ResponseEntity.ok(brands);
     }
 
     @GetMapping("/types")
     public ResponseEntity<List<String>> getAllTypes()
     {
-        List<String> types= productPort.findAllTypes();
+        List<String> types = productPort.findAllTypes();
         return ResponseEntity.ok(types);
     }
 
 
-    @GetMapping(params = "brand")
-    public ResponseEntity<List<ProductResponse>> getAllProductsByBrands(@RequestParam String brand)
+    @GetMapping(params = "brands")
+    public ResponseEntity<List<ProductResponse>> getAllProductsByBrands(@RequestParam String brands)
     {
-        List<String> brandList = Arrays.asList(brand.split(","));
+        List<String> brandList = Arrays.asList(brands.split(","));
         List<Product> products = productPort.findByBrandIn(brandList);
         List<ProductResponse> responses = products
                 .stream()
@@ -111,10 +111,10 @@ public class ProductController {
         return ResponseEntity.ok(responses);
     }
 
-    @GetMapping(params = "type")
-    public ResponseEntity<List<ProductResponse>> getAllProductsByTypes(@RequestParam String type)
+    @GetMapping(params = "types")
+    public ResponseEntity<List<ProductResponse>> getAllProductsByTypes(@RequestParam String types)
     {
-        List<String> typeList = Arrays.asList(type.split(","));
+        List<String> typeList = Arrays.asList(types.split(","));
         List<Product> products = productPort.findByTypeIn(typeList);
         List<ProductResponse> responses = products
                 .stream()

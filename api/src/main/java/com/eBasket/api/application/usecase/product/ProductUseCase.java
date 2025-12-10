@@ -1,5 +1,6 @@
 package com.eBasket.api.application.usecase.product;
 
+import com.eBasket.api.application.dto.request.ProductQueryRequest;
 import com.eBasket.api.application.mapper.ProductMapper;
 import com.eBasket.api.application.port.ProductPort;
 import com.eBasket.api.domain.model.Product;
