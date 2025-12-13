@@ -1,4 +1,4 @@
-package com.eBasket.api.application.dto.request;
+package com.eBasket.api.application.dto.product.request;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;

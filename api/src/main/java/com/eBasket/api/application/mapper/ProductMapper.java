@@ -1,7 +1,7 @@
 package com.eBasket.api.application.mapper;
 
-import com.eBasket.api.application.dto.request.CreateProductRequest;
-import com.eBasket.api.application.dto.response.ProductResponse;
+import com.eBasket.api.application.dto.product.request.CreateProductRequest;
+import com.eBasket.api.application.dto.product.response.ProductResponse;
 import com.eBasket.api.domain.model.Product;
 import com.eBasket.api.infrastructure.persistence.entity.ProductEntity;
 import org.springframework.stereotype.Component;

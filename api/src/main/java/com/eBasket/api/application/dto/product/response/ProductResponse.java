@@ -1,4 +1,4 @@
-package com.eBasket.api.application.dto.response;
+package com.eBasket.api.application.dto.product.response;
 
 import lombok.Data;
 

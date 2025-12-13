@@ -1,13 +1,16 @@
 package com.eBasket.api.infrastructure.web.controller;
 
-import com.eBasket.api.application.dto.request.CreateProductRequest;
-import com.eBasket.api.application.dto.request.UpdateProductRequest;
-import com.eBasket.api.application.dto.response.ProductResponse;
+import com.eBasket.api.application.dto.product.request.CreateProductRequest;
+import com.eBasket.api.application.dto.product.request.ProductQueryRequest;
+import com.eBasket.api.application.dto.product.request.UpdateProductRequest;
+import com.eBasket.api.application.dto.product.response.ProductResponse;
 import com.eBasket.api.application.mapper.ProductMapper;
 import com.eBasket.api.application.port.ProductPort;
+import com.eBasket.api.application.specification.ProductSpecification;
 import com.eBasket.api.domain.model.Product;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +26,7 @@ public class ProductController {
     private final ProductMapper productMapper;
 
     @PostMapping
-    public ResponseEntity<ProductResponse>  createProduct(@Valid @RequestBody CreateProductRequest createProductRequest)
-    {
+    public ResponseEntity<ProductResponse> createProduct(@Valid @RequestBody CreateProductRequest createProductRequest) {
         Product product = productMapper.toDomain(createProductRequest);
 
         var savedProduct = productPort.saveProduct(product);
@@ -35,30 +37,25 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProductResponse>> getAllProducts()
-    {
-        List<Product> products = productPort.findAllProducts();
+    public ResponseEntity<Page<ProductResponse>> getAllProducts(@ModelAttribute @Valid ProductQueryRequest productQueryRequest) {
+        Page<Product> products = productPort.findAllProducts(productQueryRequest);
 
-        List<ProductResponse> responses = products
-                .stream()
-                .map(productMapper :: toResponse)
-                .toList();
+        Page<ProductResponse> responses = products
+                .map(productMapper::toResponse);
 
         return ResponseEntity.ok(responses);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductResponse> getProductById(@PathVariable Long id)
-    {
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable Long id) {
         return productPort.findProductById(id)
-                .map(productMapper :: toResponse)
-                .map(ResponseEntity :: ok)
+                .map(productMapper::toResponse)
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductResponse> updateProduct(@PathVariable Long id, @Valid @RequestBody UpdateProductRequest updateProductRequest)
-    {
+    public ResponseEntity<ProductResponse> updateProduct(@PathVariable Long id, @Valid @RequestBody UpdateProductRequest updateProductRequest) {
         Product product = new Product();
 
         product.setName(updateProductRequest.getName());
@@ -71,83 +68,26 @@ public class ProductController {
 
         Product updatedProduct = productPort.updateProduct(id, product);
 
-        ProductResponse response =  productMapper.toResponse(updatedProduct);
+        ProductResponse response = productMapper.toResponse(updatedProduct);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteProduct(Long id)
-    {
+    public ResponseEntity deleteProduct(Long id) {
         productPort.deleteProductById(id);
 
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/brands")
-    public ResponseEntity<List<String>> getAllBrands()
-    {
+    public ResponseEntity<List<String>> getAllBrands() {
         List<String> brands = productPort.findAllBrands();
         return ResponseEntity.ok(brands);
     }
 
     @GetMapping("/types")
-    public ResponseEntity<List<String>> getAllTypes()
-    {
+    public ResponseEntity<List<String>> getAllTypes() {
         List<String> types = productPort.findAllTypes();
         return ResponseEntity.ok(types);
-    }
-
-
-    @GetMapping(params = "brands")
-    public ResponseEntity<List<ProductResponse>> getAllProductsByBrands(@RequestParam String brands)
-    {
-        List<String> brandList = Arrays.asList(brands.split(","));
-        List<Product> products = productPort.findByBrandIn(brandList);
-        List<ProductResponse> responses = products
-                .stream()
-                .map(productMapper :: toResponse)
-                .toList();
-
-        return ResponseEntity.ok(responses);
-    }
-
-    @GetMapping(params = "types")
-    public ResponseEntity<List<ProductResponse>> getAllProductsByTypes(@RequestParam String types)
-    {
-        List<String> typeList = Arrays.asList(types.split(","));
-        List<Product> products = productPort.findByTypeIn(typeList);
-        List<ProductResponse> responses = products
-                .stream()
-                .map(productMapper :: toResponse)
-                .toList();
-
-        return ResponseEntity.ok(responses);
-    }
-
-    @GetMapping(params = {"brands", "types"})
-    public ResponseEntity<List<ProductResponse>>  getAllProductsByBrandAndTypes(@RequestParam String brands, @RequestParam String types)
-    {
-        List<String> brandList = Arrays.asList(brands.split(","));
-        List<String> typeList = Arrays.asList(types.split(","));
-
-        List<Product> products = productPort.findByBrandInAndTypeIn(brandList, typeList);
-        List<ProductResponse> responses = products
-                .stream()
-                .map(productMapper :: toResponse)
-                .toList();
-
-        return ResponseEntity.ok(responses);
-    }
-
-    @GetMapping(params = "search")
-    public ResponseEntity<List<ProductResponse>> searchProducts(@RequestParam String search)
-    {
-        List<Product> products = productPort.searchByName(search);
-        List<ProductResponse> responses = products
-                .stream()
-                .map(productMapper :: toResponse)
-                .toList();
-
-        return ResponseEntity.ok(responses);
     }
 }

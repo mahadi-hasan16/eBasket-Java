@@ -1,4 +1,4 @@
-package com.eBasket.api.application.dto.request;
+package com.eBasket.api.application.dto.product.request;
 
 import lombok.Data;
 
@@ -10,8 +10,8 @@ public class ProductQueryRequest {
     List<String> types;
     String search;
     String sort;
-    Integer pageIndex;
     Integer pageSize;
+    Integer pageIndex;
 
     public Integer getPageNumber() {
         return pageIndex != null ? pageIndex : 0;
