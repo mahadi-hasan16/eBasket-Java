@@ -1,14 +1,12 @@
 package com.eBasket.api.product.controller;
 
-import com.eBasket.api.product.dto.request.ProductQueryRequest;
+import com.eBasket.api.product.dto.request.ProductQueryParams;
 import com.eBasket.api.product.dto.response.ProductResponse;
-import com.eBasket.api.product.entity.Product;
 import com.eBasket.api.product.mapper.ProductMapper;
 import com.eBasket.api.common.constants.ApiConstants;
 import com.eBasket.api.product.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,11 +31,8 @@ public class ProductController {
 //    }
 
     @GetMapping
-    public ResponseEntity<List<ProductResponse>> getAllProducts(@ModelAttribute @Valid ProductQueryRequest productQueryRequest) {
-        List<ProductResponse> products = productService.findAllProducts();
-
-//        Page<ProductResponse> responses = products
-//                .map(productMapper::toResponse);
+    public ResponseEntity<List<ProductResponse>> getAllProducts(@ModelAttribute @Valid ProductQueryParams productQueryRequest) {
+        List<ProductResponse> products = productService.findAllProducts(productQueryRequest);
 
         return ResponseEntity.ok(products);
     }

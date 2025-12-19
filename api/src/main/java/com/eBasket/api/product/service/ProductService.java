@@ -1,18 +1,19 @@
 package com.eBasket.api.product.service;
 
-import com.eBasket.api.product.dto.request.ProductQueryRequest;
+import com.eBasket.api.product.dto.request.ProductQueryParams;
 import com.eBasket.api.product.dto.response.ProductResponse;
 import com.eBasket.api.product.entity.Product;
 import com.eBasket.api.product.mapper.ProductMapper;
 import com.eBasket.api.product.repository.ProductRepository;
+import com.eBasket.api.product.repository.ProductSpecification;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,14 +34,10 @@ public class ProductService {
     }
 
 
-    public List<ProductResponse> findAllProducts() {
-//        Specification<com.eBasket.api.product.entity.Product> productSpecification = ProductSpecification.getProductFilters(productQueryRequest);
-//
-//        Pageable pageable = createPageable(productQueryRequest);
-//        List<Product> products = productRepository.findAll();
-//        List<ProductResponse> productResponses = new ArrayList<>();
+    public List<ProductResponse> findAllProducts(ProductQueryParams productQueryParams) {
+        Specification<Product> productSpecification = ProductSpecification.getProductFilters(productQueryParams);
 
-        return productRepository.findAll()
+        return productRepository.findAll(productSpecification)
                 .stream()
                 .map(productMapper :: toResponse)
                 .toList();
@@ -70,12 +67,12 @@ public class ProductService {
     }
 
     //Creating Pageable
-    private Pageable createPageable(ProductQueryRequest productQueryRequest) {
-        int page = productQueryRequest.getPageNumber();
-        int size = productQueryRequest.getPageSize() != null ? productQueryRequest.getPageSize() : 10;
-        Sort sort = createSort(productQueryRequest.getSort());
-        return PageRequest.of(page, size, sort);
-    }
+//    private Pageable createPageable(ProductQueryParams productQueryRequest) {
+//        int page = productQueryRequest.getPageNumber();
+//        int size = productQueryRequest.getPageSize() != null ? productQueryRequest.getPageSize() : 10;
+//        Sort sort = createSort(productQueryRequest.getSort());
+//        return PageRequest.of(page, size, sort);
+//    }
 
     private Sort createSort(String sort) {
         if(sort == null) {
