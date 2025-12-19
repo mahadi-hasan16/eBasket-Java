@@ -1,0 +1,107 @@
+-- Step 3: Insert 100 Products with UNIQUE slugs
+INSERT INTO public.products (
+    created_at,
+    updated_at,
+    created_by,
+    deleted_at,
+    is_deleted,
+    updated_by,
+    average_rating,
+    color,
+    compare_at_price,
+    cost_price,
+    description,
+    height,
+    image_url,
+    is_featured,
+    is_taxable,
+    length,
+    meta_description,
+    meta_keywords,
+    name,
+    price,
+    quantity_in_stock,
+    requires_shipping,
+    review_count,
+    sales_count,
+    short_description,
+    sku,
+    slug,
+    status,
+    type,
+    weight,
+    width,
+    brand_id,
+    category_id
+)
+SELECT
+    NOW() - (random() * 365 * '1 day'::interval),
+    CASE WHEN random() > 0.3 THEN NOW() - (random() * 30 * '1 day'::interval) END,
+    1,
+    NULL,
+    FALSE,
+    CASE WHEN random() > 0.5 THEN 1 END,
+    ROUND((3.5 + random() * 1.5)::numeric, 2),
+    (ARRAY['Black','White','Blue','Red','Green','Silver','Gray','Navy','Beige','Pink'])[floor(random() * 10 + 1)],
+    CASE WHEN random() > 0.6 THEN ROUND((price * (1.25 + random() * 0.3))::numeric, 2) END,
+    ROUND((price * (0.4 + random() * 0.2))::numeric, 2),
+    'Premium ' || base_name || ' designed for quality, comfort, and everyday performance.',
+    ROUND((random() * 12 + 3)::numeric, 2),
+    image_url,
+    random() > 0.85,
+    TRUE,
+    ROUND((random() * 25 + 8)::numeric, 2),
+    'Shop ' || base_name || ' – high quality and 5-star reviews.',
+    REPLACE(LOWER(base_name), ' ', ', ') || ', bestseller',
+    base_name,
+    price,
+    floor(random() * 150 + 20)::int,
+    TRUE,
+    floor(random() * 400)::int,
+    floor(random() * 800)::int,
+    'High-quality ' || base_name || ' for daily use.',
+    'SKU' || lpad((1000 + gs)::text, 6, '0'),
+    CASE
+        WHEN gs <= 20 THEN base_slug  -- first 20 are unique by design
+        ELSE base_slug || '-' || gs   -- rest get suffix to guarantee uniqueness
+END,
+    (ARRAY['ACTIVE','ACTIVE','ACTIVE','ACTIVE','INACTIVE'])[floor(random() * 5 + 1)],
+    'PHYSICAL',
+    ROUND((random() * 2.5 + 0.3)::numeric, 2),
+    ROUND((random() * 20 + 6)::numeric, 2),
+    (floor(random() * 6) + 1)::bigint,
+    category_id
+FROM generate_series(1, 100) AS gs
+CROSS JOIN LATERAL (
+    SELECT
+        name AS base_name,
+        slug AS base_slug,
+        price,
+        image_url,
+        category_id
+    FROM (
+        VALUES
+        ('Wireless Bluetooth Earbuds', 'wireless-bluetooth-earbuds', 59.99, 'https://images.pexels.com/photos/10926404/pexels-photo-10926404.jpeg?auto=compress&cs=tinysrgb&w=600', 4),
+        ('Smart Fitness Tracker', 'smart-fitness-tracker', 89.99, 'https://images.pexels.com/photos/7770482/pexels-photo-7770482.jpeg?auto=compress&cs=tinysrgb&w=600', 4),
+        ('Noise-Canceling Headphones', 'noise-canceling-headphones', 199.99, 'https://images.pexels.com/photos/7340855/pexels-photo-7340855.jpeg?auto=compress&cs=tinysrgb&w=600', 4),
+        ('Smartphone Case', 'smartphone-case', 19.99, 'https://images.pexels.com/photos/10542220/pexels-photo-10542220.jpeg?auto=compress&cs=tinysrgb&w=600', 4),
+        ('Laptop Stand', 'laptop-stand', 34.99, 'https://images.pexels.com/photos/6102996/pexels-photo-6102996.jpeg?auto=compress&cs=tinysrgb&w=600', 5),
+        ('Mechanical Keyboard', 'mechanical-keyboard', 79.99, 'https://images.pexels.com/photos/6381270/pexels-photo-6381270.jpeg?auto=compress&cs=tinysrgb&w=600', 5),
+        ('Men''s Cotton T-Shirt', 'mens-cotton-tshirt', 24.99, 'https://images.pexels.com/photos/10421118/pexels-photo-10421118.jpeg?auto=compress&cs=tinysrgb&w=600', 6),
+        ('Women''s Summer Dress', 'womens-summer-dress', 44.99, 'https://images.pexels.com/photos/10421127/pexels-photo-10421127.jpeg?auto=compress&cs=tinysrgb&w=600', 7),
+        ('Slim-Fit Denim Jeans', 'slim-fit-jeans', 59.99, 'https://images.pexels.com/photos/9357823/pexels-photo-9357823.jpeg?auto=compress&cs=tinysrgb&w=600', 6),
+        ('Leather Crossbody Bag', 'leather-crossbody-bag', 69.99, 'https://images.pexels.com/photos/12784167/pexels-photo-12784167.jpeg?auto=compress&cs=tinysrgb&w=600', 7),
+        ('Running Sneakers', 'running-sneakers', 109.99, 'https://images.pexels.com/photos/11241559/pexels-photo-11241559.jpeg?auto=compress&cs=tinysrgb&w=600', 6),
+        ('Yoga Mat', 'yoga-mat', 29.99, 'https://images.pexels.com/photos/11250463/pexels-photo-11250463.jpeg?auto=compress&cs=tinysrgb&w=600', 3),
+        ('Stainless Steel Water Bottle', 'stainless-steel-bottle', 22.99, 'https://images.pexels.com/photos/11250475/pexels-photo-11250475.jpeg?auto=compress&cs=tinysrgb&w=600', 3),
+        ('Bamboo Toothbrush Set', 'bamboo-toothbrush-set', 12.99, 'https://images.pexels.com/photos/12133577/pexels-photo-12133577.jpeg?auto=compress&cs=tinysrgb&w=600', 3),
+        ('Scented Soy Candle', 'scented-soy-candle', 18.50, 'https://images.pexels.com/photos/12032747/pexels-photo-12032747.jpeg?auto=compress&cs=tinysrgb&w=600', 3),
+        ('Desk Lamp with USB Port', 'desk-lamp-usb', 49.99, 'https://images.pexels.com/photos/6929883/pexels-photo-6929883.jpeg?auto=compress&cs=tinysrgb&w=600', 1),
+        ('Wireless Mouse', 'wireless-mouse', 29.99, 'https://images.pexels.com/photos/6381264/pexels-photo-6381264.jpeg?auto=compress&cs=tinysrgb&w=600', 5),
+        ('Backpack for Work', 'work-backpack', 74.99, 'https://images.pexels.com/photos/12784158/pexels-photo-12784158.jpeg?auto=compress&cs=tinysrgb&w=600', 2),
+        ('Minimalist Watch', 'minimalist-watch', 89.99, 'https://images.pexels.com/photos/12115625/pexels-photo-12115625.jpeg?auto=compress&cs=tinysrgb&w=600', 2),
+        ('Face Moisturizer', 'face-moisturizer', 27.99, 'https://images.pexels.com/photos/12032723/pexels-photo-12032723.jpeg?auto=compress&cs=tinysrgb&w=600', 3)
+    ) AS items(name, slug, price, image_url, category_id)
+    OFFSET (gs - 1) % 20
+    LIMIT 1
+) AS p;
