@@ -15,6 +15,7 @@ import { Pagination } from '../../shared/models/pagination';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { LoaderService } from '../../shared/services/loader-service';
 
 @Component({
   selector: 'app-shop',
@@ -35,7 +36,7 @@ import { Router } from '@angular/router';
 })
 export class Shop implements OnInit {
   private router = inject(Router);
-
+  private loaderService = inject(LoaderService);
   private dialogService = inject(MatDialog);
   private shopService = inject(ShopService);
   private changeDetectionRef = inject(ChangeDetectorRef);
@@ -49,6 +50,7 @@ export class Shop implements OnInit {
   shopParams = new ShopParams();
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.initializeShop();
   }
 
@@ -63,6 +65,7 @@ export class Shop implements OnInit {
       .subscribe({
         next: response => {
           this.products = response;
+          this.loaderService.hideLoader();
           console.log(this.shopParams);
           this.changeDetectionRef.detectChanges();
           console.log(this.products);

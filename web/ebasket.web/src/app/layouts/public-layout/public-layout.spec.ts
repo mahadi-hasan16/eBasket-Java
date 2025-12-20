@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ErrorSnackbar } from './error-snackbar';
+import { PublicLayout } from './public-layout';
 
-describe('ErrorSnackbar', () => {
-  let component: ErrorSnackbar;
-  let fixture: ComponentFixture<ErrorSnackbar>;
+describe('PublicLayout', () => {
+  let component: PublicLayout;
+  let fixture: ComponentFixture<PublicLayout>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ErrorSnackbar]
+      imports: [PublicLayout]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ErrorSnackbar);
+    fixture = TestBed.createComponent(PublicLayout);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

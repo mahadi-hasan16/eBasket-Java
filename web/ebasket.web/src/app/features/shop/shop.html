@@ -27,7 +27,7 @@
     </div>
   </div>
 
-  <div class="grid grid-cols-5 gap-4">
+  <div class="grid grid-cols-5 gap-4 border-0">
     @for (product of products; track product.id || $index)
     {
     <app-product-item [product]="product"></app-product-item>

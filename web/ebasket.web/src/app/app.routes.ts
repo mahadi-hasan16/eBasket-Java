@@ -1,17 +1,26 @@
 import { Routes } from '@angular/router';
-import { Home } from './features/home/home';
 import { Shop } from './features/shop/shop';
 import { ProductDetails } from './features/product-details/product-details';
 import { TestError } from './features/test-error/test-error';
 import { NotFound } from './shared/components/errors/not-found/not-found';
 import { ServerError } from './shared/components/errors/server-error/server-error';
+import { PublicLayout } from './layouts/public-layout/public-layout';
 
 export const routes: Routes = [
-    {path: '', component: Home},
-    {path: 'shop', component: Shop},
-    {path: 'shop/:id', component: ProductDetails},
-    {path: 'test-error', component: TestError},
-    {path: 'not-found', component: NotFound},
-    {path: 'server-error', component: ServerError},
-    {path: '**',redirectTo:'not-found', pathMatch: 'full'},
+    {
+        path: '',
+        component: PublicLayout,
+        children: [
+            {
+                path: 'products',
+                loadChildren: () => import('./features/product/product.routes').then(m => m.productRoutes)
+            }
+        ]
+    },
+    { path: 'shop', component: Shop },
+    { path: 'shop/:id', component: ProductDetails },
+    { path: 'test-error', component: TestError },
+    { path: 'not-found', component: NotFound },
+    { path: 'server-error', component: ServerError },
+    { path: '**', redirectTo: 'not-found', pathMatch: 'full' }
 ];
