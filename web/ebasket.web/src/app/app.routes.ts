@@ -7,16 +7,7 @@ import { ServerError } from './shared/components/errors/server-error/server-erro
 import { PublicLayout } from './layouts/public-layout/public-layout';
 
 export const routes: Routes = [
-    {
-        path: '',
-        component: PublicLayout,
-        children: [
-            {
-                path: 'products',
-                loadChildren: () => import('./features/product/product.routes').then(m => m.productRoutes)
-            }
-        ]
-    },
+    { path: '', component: PublicLayout },
     { path: 'shop', component: Shop },
     { path: 'shop/:id', component: ProductDetails },
     { path: 'test-error', component: TestError },
