@@ -1,1 +1,120 @@
-<p>footer works!</p>
+<footer class="bg-gray-900 text-white pt-10 pb-6">
+    <div class="container mx-auto px-4">
+
+        <!-- Newsletter Section -->
+        @if (config().showNewsletter) {
+        <div class="mb-10">
+            <h3 class="text-2xl font-bold mb-4">Stay Updated</h3>
+            <p class="text-gray-400 mb-4">Subscribe to our newsletter for the latest deals and updates.</p>
+
+            <div class="flex flex-col sm:flex-row gap-3 max-w-md">
+                <input type="email" placeholder="Your email address" class="flex-grow px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 
+                   focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                   focus:outline-none text-white" [value]="email()" (input)="email.set($any($event.target).value)"
+                    (keyup.enter)="onSubscribe()" [disabled]="isSubscribed()" />
+                <button (click)="onSubscribe()" [disabled]="isSubscribed()" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 
+                   rounded-lg font-semibold transition-colors
+                   disabled:opacity-50 disabled:cursor-not-allowed">
+                    @if (isSubscribed()) {
+                    Subscribed! ✓
+                    } @else {
+                    Subscribe
+                    }
+                </button>
+            </div>
+        </div>
+        }
+
+        <!-- Main Footer Content Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+
+            <!-- Company Info -->
+            <div>
+                <img class="logo" src="{{ICONS.LOGO}}" alt="">
+                <p class="text-gray-400">
+                    Your one-stop shop for everything electronics, fashion, and home essentials.
+                </p>
+            </div>
+
+            <!-- Sitemap Links -->
+            @if (config().showSitemap) {
+            @for (column of footerColumns; track column.title) {
+            <div>
+                <h4 class="text-lg font-semibold mb-4">{{ column.title }}</h4>
+                <ul class="space-y-2">
+                    @for (link of column.links; track link.label) {
+                    <li>
+                        <a [href]="link.url" (click)="onLinkClick(link.label)"
+                            class="text-gray-400 hover:text-white transition-colors">
+                            {{ link.label }}
+                        </a>
+                    </li>
+                    }
+                </ul>
+            </div>
+            }
+            }
+
+            <!-- Contact Info -->
+            @if (config().showContactInfo) {
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Contact Us</h4>
+                <ul class="space-y-3 text-gray-400">
+                    <li class="flex items-start">
+                        <span class="mr-2">📧</span>
+                        <a [href]="'mailto:' + contactInfo.email" class="hover:text-white">
+                            {{ contactInfo.email }}
+                        </a>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="mr-2">📞</span>
+                        {{ contactInfo.phone }}
+                    </li>
+                    <li class="flex items-start">
+                        <span class="mr-2">📍</span>
+                        {{ contactInfo.address }}
+                    </li>
+                    <li class="flex items-start">
+                        <span class="mr-2">🕒</span>
+                        {{ contactInfo.businessHours }}
+                    </li>
+                </ul>
+            </div>
+            }
+
+        </div>
+
+        <!-- Bottom Section -->
+        <div class="border-t border-gray-800 pt-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+
+                <!-- Copyright -->
+                <div class="text-gray-400 mb-4 md:mb-0">
+                    © {{ currentYear() }} eBasket. All rights reserved.
+                </div>
+
+                <!-- Social Links -->
+                @if (config().showSocialLinks) {
+                <div class="flex space-x-4 mb-4 md:mb-0">
+                    @for (social of socialLinks; track social.platform) {
+                    <a [href]="social.url" class="w-10 h-10 rounded-full bg-gray-800 flex items-center 
+                       justify-center text-xl hover:bg-gray-700 transition-colors"
+                        [title]="'Follow us on ' + social.platform">
+                        {{ social.icon }}
+                    </a>
+                    }
+                </div>
+                }
+
+                <!-- Legal Links -->
+                <div class="flex space-x-6 text-sm">
+                    <a href="/privacy" class="text-gray-400 hover:text-white">Privacy Policy</a>
+                    <a href="/terms" class="text-gray-400 hover:text-white">Terms of Service</a>
+                    <a href="/cookies" class="text-gray-400 hover:text-white">Cookie Policy</a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</footer>

@@ -10,5 +10,18 @@ import { Footer } from "../../shared/components/footer/footer";
   styleUrl: './public-layout.css'
 })
 export class PublicLayout {
+  headerConfig = {
+    showSearch: true,
+    showCategory: true,
+    sticky: true,
+    transparent: true
+  };
 
+  footerConfig = {
+    showNewsletter: true,
+    showSitemap: true,
+    showSocialLinks: true,
+    showContactInfo: true
+
+  };
 }

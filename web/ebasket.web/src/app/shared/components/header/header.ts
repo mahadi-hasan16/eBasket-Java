@@ -5,16 +5,18 @@ import { MatAnchor, MatIconButton } from "@angular/material/button";
 import { MatIcon } from "@angular/material/icon";
 import { HeaderConfig, MenuItem } from './header.model';
 import { UserProfile } from '../../models/user.model';
+import { ICONS } from '../../constants/icons';
 //import { CartService } from '../../../features/cart/services/cart.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatAnchor, MatIconButton, MatIcon],
+  imports: [CommonModule, RouterModule],
   templateUrl: 'header.html',
   styleUrl: 'header.css'
 })
 export class Header {
+  ICONS = ICONS;
   config = input<HeaderConfig>(
     {
       showSearch: true,
@@ -33,7 +35,6 @@ export class Header {
   cartItemCount = signal(0);
   isMenuOpen = signal(false);
   searchQuery = signal('');
-
 
   constructor() {
     // Subscribe to cart updates reactively

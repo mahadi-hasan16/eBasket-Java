@@ -33,3 +33,14 @@ a.active {
 .mdc-notched-outline__notch{
     border-right-style: none !important;
 }
+
+.logo {
+    width: 150px;
+    height: 60px;
+}
+
+.icon {
+    display: inline;
+    height: 25px;
+    width: 25px;
+}
