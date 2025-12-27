@@ -21,6 +21,7 @@ export class Header {
     {
       showSearch: true,
       showCategory: true,
+      showNotificationBell: true,
       sticky: true,
       transparent: false
     }

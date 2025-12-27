@@ -1,6 +1,7 @@
 export interface HeaderConfig {
     showSearch: boolean;
     showCategory: boolean;
+    showNotificationBell: boolean;
     sticky: boolean;
     transparent: boolean;
 }

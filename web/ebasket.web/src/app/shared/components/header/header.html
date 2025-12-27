@@ -48,12 +48,16 @@
       </div>
       }
 
+      @if (config().showNotificationBell) {
+      <img class="icon" src={{ICONS.NOTIFICATION_BELL}} alt="Notification Bell">
+      }
+
       <!-- User Actions -->
       <div class="flex items-center space-x-4">
 
         <!-- Cart -->
         <a routerLink="/cart" class="relative p-2 text-gray-600 hover:text-blue-600">
-          <span class="text-xl">🛒</span>
+          <img class="icon" src={{ICONS.SHOPPING_CART}} alt="Shopping Cart">
           @if (cartItemCount() > 0) {
           <span class="absolute -top-1 -right-1 bg-red-500 text-white 
                      text-xs rounded-full w-5 h-5 flex items-center justify-center">
@@ -78,7 +82,7 @@
             } @else {
             <!-- Logged Out -->
             <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
-              👤
+              <img class="icon" src={{ICONS.TEST_ACCOUNT}} alt="">
             </div>
             <span class="hidden md:inline text-gray-700">Sign In</span>
             }
