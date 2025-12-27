@@ -44,3 +44,9 @@ a.active {
     height: 25px;
     width: 25px;
 }
+
+.icon2 {
+    display: inline;
+    height: 50px;
+    width: 50px;
+}

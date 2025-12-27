@@ -7,4 +7,9 @@ export const ICONS = {
     INBOX: '/icons/message.png',
     SHOPPING_CART: '/icons/shopping_cart.png',
     TEST_ACCOUNT: '/icons/test_account.png',
+    FREE_SHIPPING: '/icons/free_shipping.png',
+    SHIPPED: '/icons/shipped.png',
+    SECURE_PAYMENT: '/icons/secure_payment.png',
+    SUPPORT: '/icons/support.png',
+    SHOP: '/icons/shop.png',
 }

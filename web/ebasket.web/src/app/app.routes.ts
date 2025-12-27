@@ -5,7 +5,17 @@ import { ServerError } from './shared/components/errors/server-error/server-erro
 import { PublicLayout } from './layouts/public-layout/public-layout';
 
 export const routes: Routes = [
-    { path: '', component: PublicLayout },
+    {
+        path: '',
+        component: PublicLayout,
+        children: [
+            {
+                path: '',
+                loadComponent: () => import('./features/product/pages/product-home-page/product-home-page').then(m => m.ProductHomePage)
+            }
+        ]
+    },
+
     { path: 'shop', component: Shop },
     { path: 'not-found', component: NotFound },
     { path: 'server-error', component: ServerError },
