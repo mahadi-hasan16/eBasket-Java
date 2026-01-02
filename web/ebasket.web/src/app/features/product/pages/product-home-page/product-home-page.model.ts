@@ -30,11 +30,9 @@ export const CATEGORIES = [
     }
 ];
 
-const icons = ICONS;
-
 export const TRUST_BADGES = [
-    { icon: icons.FREE_SHIPPING, text: 'Free Shipping', subtext: 'On orders over $50' },
-    { icon: icons.SECURE_PAYMENT, text: 'Secure Payment', subtext: '100% secure' },
-    { icon: icons.SHIPPED, text: 'Fast Delivery', subtext: 'Same day shipping' },
-    { icon: icons.SUPPORT, text: '24/7 Support', subtext: 'Dedicated support' }
+    { icon: ICONS.FREE_SHIPPING, text: 'Free Shipping', subtext: 'On orders over $50' },
+    { icon: ICONS.SECURE_PAYMENT, text: 'Secure Payment', subtext: '100% secure' },
+    { icon: ICONS.SHIPPED, text: 'Fast Delivery', subtext: 'Same day shipping' },
+    { icon: ICONS.SUPPORT, text: '24/7 Support', subtext: 'Dedicated support' }
 ];

@@ -10,7 +10,6 @@ import { ICONS } from '../../../../shared/constants/icons';
   imports: [RouterLink],
 })
 export class ProductHomePage {
-  icons = ICONS;
   hero = input<Hero>({
     title: 'Summer Sale',
     subtitle: 'Up to 50% off on selected items',
