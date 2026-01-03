@@ -6,6 +6,7 @@ export const ICONS = {
     NOTIFICATION_BELL: '/icons/notification_bell.png',
     INBOX: '/icons/message.png',
     SHOPPING_CART: '/icons/shopping_cart.png',
+    ADD_TO_CART: '/icons/add_to_cart.png',
     TEST_ACCOUNT: '/icons/test_account.png',
     FREE_SHIPPING: '/icons/free_shipping.png',
     SHIPPED: '/icons/shipped.png',

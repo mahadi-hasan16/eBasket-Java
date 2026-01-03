@@ -14,7 +14,7 @@
                  font-bold text-lg hover:bg-gray-100 transition-colors" [routerLink]="hero().buttonLink"
                     (click)="onShopNowClick()">
                     <img class="icon mr-2" src={{hero().buttonIcon}} alt="">
-                    <a>
+                    <a routerLink="/products">
                         {{ hero().buttonText }}
                     </a>
                 </button>

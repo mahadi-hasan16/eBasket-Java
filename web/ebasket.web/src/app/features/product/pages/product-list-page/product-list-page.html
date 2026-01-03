@@ -1,1 +1,5 @@
-<p>product-list-page works!</p>
+<div class="mt-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    @for (product of products; track $index) {
+    <product-card></product-card>
+    }
+</div>
