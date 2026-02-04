@@ -11,14 +11,15 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 @Entity
-@Table(name = "products", indexes = {
-        @Index(name = "idx_product_sku", columnList = "sku", unique = true),
-        @Index(name = "idx_product_slug", columnList = "slug", unique = true),
-        @Index(name = "idx_product_status", columnList = "status"),
-        @Index(name = "idx_product_brand", columnList = "brand_id"),
-        @Index(name = "idx_product_category", columnList = "category_id"),
-        @Index(name = "idx_product_price", columnList = "price")
-})
+@Table(name = "products",
+        indexes = {
+                @Index(name = "idx_product_sku", columnList = "sku", unique = true),
+                @Index(name = "idx_product_slug", columnList = "slug", unique = true),
+                @Index(name = "idx_product_status", columnList = "status"),
+                @Index(name = "idx_product_brand", columnList = "brand_id"),
+                @Index(name = "idx_product_category", columnList = "category_id"),
+                @Index(name = "idx_product_price", columnList = "price")},
+        uniqueConstraints = {@UniqueConstraint(name = "uk_products_slug", columnNames = "slug")})
 @Getter
 @Setter
 public class Product extends AuditableEntity {
@@ -113,21 +114,19 @@ public class Product extends AuditableEntity {
         return quantityInStock > 0;
     }
 
-    public boolean isLowStock(){
+    public boolean isLowStock() {
         return quantityInStock <= 5;
     }
 
-    public boolean hasDiscount(){
+    public boolean hasDiscount() {
         return compareAtPrice != null && compareAtPrice.compareTo(price) > 0;
     }
 
 
-    public BigDecimal getDiscountPercentage(){
-        if(! hasDiscount()) return BigDecimal.ZERO;
+    public BigDecimal getDiscountPercentage() {
+        if (!hasDiscount()) return BigDecimal.ZERO;
 
-        return compareAtPrice.subtract(price)
-                .divide(price, 2, RoundingMode.HALF_UP)
-                .multiply(BigDecimal.valueOf(100));
+        return compareAtPrice.subtract(price).divide(price, 2, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100));
     }
 
 }

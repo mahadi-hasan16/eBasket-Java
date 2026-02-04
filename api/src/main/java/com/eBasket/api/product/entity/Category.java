@@ -13,7 +13,11 @@ import java.util.List;
         indexes = {
                 @Index(name = "idx_category_slug", columnList = "slug", unique = true),
                 @Index(name = "idx_category_parent", columnList = "parent_id"),
+                @Index(name = "idx_categories_active", columnList = "is_active"),
                 @Index(name = "idx_category_sort", columnList = "sort_order")
+        },
+        uniqueConstraints = {
+                @UniqueConstraint(name = "uk_categories_slug", columnNames = "slug")
         })
 @Getter
 @Setter
