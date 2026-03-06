@@ -4,6 +4,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
 
 import java.time.LocalDateTime;
 
@@ -11,9 +13,11 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public abstract class AuditableEntity extends BaseEntity {
+    @CreatedBy
     @Column(name = "created_by")
     private Long createdBy;
 
+    @LastModifiedBy
     @Column(name = "updated_by")
     private Long updatedBy;
 
