@@ -30,12 +30,12 @@ public class ProductController {
 //        return ResponseEntity.status(HttpStatus.CREATED).body(productResponse);
 //    }
 
-    @GetMapping
-    public ResponseEntity<List<ProductResponse>> getAllProducts(@ModelAttribute @Valid ProductQueryParams productQueryRequest) {
-        List<ProductResponse> products = productService.findAllProducts(productQueryRequest);
-
-        return ResponseEntity.ok(products);
-    }
+//    @GetMapping
+//    public ResponseEntity<List<ProductResponse>> getAllProducts(@ModelAttribute @Valid ProductQueryParams productQueryRequest) {
+//        List<ProductResponse> products = productService.findAllProducts(productQueryRequest);
+//
+//        return ResponseEntity.ok(products);
+//    }
 
 //    @GetMapping("/{id}")
 //    public ResponseEntity<ProductResponse> getProductById(@PathVariable Long id) {
@@ -63,10 +63,10 @@ public class ProductController {
 //        return ResponseEntity.ok(response);
 //    }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity deleteProduct(Long id) {
-        productService.deleteProductById(id);
-
-        return ResponseEntity.noContent().build();
-    }
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity deleteProduct(Long id) {
+//        productService.deleteProductById(id);
+//
+//        return ResponseEntity.noContent().build();
+//    }
 }

@@ -28,3 +28,17 @@ spring:
         order_updates: true
     open-in-view: false
 
+
+#Swagger Configuration
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    use-root-path: true
+    path: /swagger-ui.html
+  show-actuator: false
+  group-configs:
+    - group: eBasket API
+      paths-to-match: /api/**
+      packages-to-scan: com.eBasket.api
+
