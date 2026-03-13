@@ -1,14 +1,11 @@
 package com.eBasket.api.product.repository;
 
-import com.eBasket.api.product.dto.request.ProductQueryParams;
+import com.eBasket.api.product.dto.product.request.ProductQueryParams;
 import com.eBasket.api.product.entity.Product;
 import jakarta.persistence.criteria.Predicate;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public class ProductSpecification {
     public static Specification<Product> getProductFilters(ProductQueryParams productQueryParams) {

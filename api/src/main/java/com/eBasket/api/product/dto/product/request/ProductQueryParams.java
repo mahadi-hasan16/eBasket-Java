@@ -1,4 +1,4 @@
-package com.eBasket.api.product.dto.request;
+package com.eBasket.api.product.dto.product.request;
 
 import com.eBasket.api.common.enums.SortDirection;
 import com.eBasket.api.product.enums.ProductSortField;

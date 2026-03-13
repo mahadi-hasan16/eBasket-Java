@@ -1,6 +1,6 @@
 package com.eBasket.api.product.dto.brand.response;
 
-import com.eBasket.api.product.entity.Product;
+import com.eBasket.api.product.dto.product.response.ProductResponse;
 
 import java.util.List;
 
@@ -10,6 +10,6 @@ public record BrandResponse(
         String description,
         String logoUrl,
         String websiteUrl,
-        List<Product> products
+        List<ProductResponse> products
 ) {
 }
