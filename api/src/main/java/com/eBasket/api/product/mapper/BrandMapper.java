@@ -1,5 +1,6 @@
 package com.eBasket.api.product.mapper;
 
+import com.eBasket.api.product.dto.brand.request.CreateBrandRequest;
 import com.eBasket.api.product.dto.brand.response.BrandResponse;
 import com.eBasket.api.product.entity.Brand;
 import org.mapstruct.Mapper;
@@ -11,6 +12,6 @@ public interface BrandMapper {
     BrandResponse toDto(Brand brand);
     List<BrandResponse> toDto(List<Brand> brands);
 
-    Brand toEntity(BrandResponse brand);
-    List<Brand> toEntity(List<BrandResponse> brands);
+    Brand toEntity(CreateBrandRequest brand);
+//    List<Brand> toEntity(List<BrandResponse> brands);
 }
