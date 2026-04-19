@@ -32,7 +32,7 @@ public class Brand extends AuditableEntity {
     private String websiteUrl;
 
     @Column(name = "is_active", nullable = false)
-    private Boolean isActive = true;
+    private Boolean isActive = false;
 
     @Column(name = "sort_order", nullable = false)
     private Integer sortOrder = 0;

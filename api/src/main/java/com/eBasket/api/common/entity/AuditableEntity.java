@@ -25,7 +25,7 @@ public abstract class AuditableEntity extends BaseEntity {
     private LocalDateTime deletedAt;
 
     @Column(name = "is_deleted", nullable = false)
-    private Boolean isDeleted;
+    private Boolean isDeleted = false;
 
     public void softDelete() {
         this.isDeleted = true;
