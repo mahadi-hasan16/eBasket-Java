@@ -12,8 +12,6 @@ public class ProductSpecification {
         return (root, query, criteriaBuilder) -> {
             Predicate productFilters = criteriaBuilder.conjunction();
 
-
-            //Constructing the specification
             if (productQueryParams.hasBrandFilter()) {
                 productFilters = criteriaBuilder.and(productFilters, root.get("brand").get("id").in(productQueryParams.getBrandIds()));
             }
