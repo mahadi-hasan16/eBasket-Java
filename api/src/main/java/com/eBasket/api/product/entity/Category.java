@@ -31,8 +31,8 @@ public class Category extends AuditableEntity {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "image_url", length = 500)
-    private String imageUrl;
+    @Column(name = "logo_url", length = 500)
+    private String logoUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
